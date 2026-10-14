@@ -1,0 +1,41 @@
+{
+  "name": "haii",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Haii keeps the promises you make in meetings: every commitment becomes a card with the sentence you said, done on a nod.",
+  "engines": {
+    "node": ">=22"
+  },
+  "workspaces": [
+    "packages/*",
+    "server"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @haii/server",
+    "start": "npm run start -w @haii/server",
+    "test": "npm run test -w @haii/schema && npm run test -w @haii/server",
+    "demo:build": "node scripts/build-demo.mjs"
+  },
+  "author": "Arda Asaroglu",
+  "homepage": "https://ardaasaroglu.github.io/haii/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ardaasaroglu/haii.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ardaasaroglu/haii/issues"
+  },
+  "keywords": [
+    "meetings",
+    "action-items",
+    "commitments",
+    "productivity",
+    "claude",
+    "anthropic",
+    "local-first",
+    "typescript",
+    "hono",
+    "pglite"
+  ]
+}

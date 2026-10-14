@@ -1,0 +1,25 @@
+node_modules/
+dist/
+*.log
+
+# secrets and local state, never commit
+.env
+server/.env
+server/.data/
+
+# any database directory variant (live, corrupt-preserved, backups)
+server/.data*/
+
+# prompt-diff baselines: real meeting content, local working artifact only
+server/.fixtures/
+
+# other env files, keep the example
+.env.*
+!.env.example
+
+# editor, agent and OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.claude/settings.local.json

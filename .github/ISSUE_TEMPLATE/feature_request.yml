@@ -1,0 +1,18 @@
+name: Idea
+description: Suggest a change before writing code.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: A new action type is a product decision. Describe the problem first, so it can be discussed before anyone writes code.
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What were you trying to do, and what got in the way?
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: What you would change

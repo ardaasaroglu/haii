@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Light skin (2026-07-26): the iris orb on a light tile, matching the app and the login
+       screen. Drawn as an opaque sphere rather than the soft additive gradients the dark
+       tile used, because on a light ground those fade to nothing. -->
+  <defs>
+    <linearGradient id="iris" x1="0.15" y1="0.1" x2="0.85" y2="0.95">
+      <stop offset="0%" stop-color="#3ED6C0"/>
+      <stop offset="48%" stop-color="#2E6BFF"/>
+      <stop offset="100%" stop-color="#8B7CF6"/>
+    </linearGradient>
+    <radialGradient id="spec" cx="34%" cy="28%" r="52%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity=".72"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="occ" cx="72%" cy="78%" r="52%">
+      <stop offset="0%" stop-color="#0A1432" stop-opacity=".34"/>
+      <stop offset="100%" stop-color="#0A1432" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="128" height="128" rx="30" fill="#F4F5F7"/>
+  <circle cx="64" cy="64" r="40" fill="url(#iris)"/>
+  <circle cx="64" cy="64" r="40" fill="url(#spec)"/>
+  <circle cx="64" cy="64" r="40" fill="url(#occ)"/>
+</svg>

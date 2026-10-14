@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F4F5F7">
+<title>Sign in · Haii</title>
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<style>
+  /* SELF-HOSTED, not Google Fonts, since 2026-08-10.
+   *
+   * The security headers added on 2026-08-10 set `style-src 'self' 'unsafe-inline'` and
+   * `font-src 'self' data:`, which blocked BOTH the Google stylesheet and the font files behind it.
+   * The page did not error: it silently fell back to Helvetica Neue and then Arial, which is the
+   * whole hazard of a webfont from another origin. It was first noticed on the sign-in screen; it was
+   * true of the entire app, because index.html carried the same three links.
+   *
+   * Serving it ourselves fixes it properly rather than punching a hole in the CSP for two hosts:
+   * no third-party request on the first screen anyone sees, no Google pageview on every sign-in,
+   * one fewer thing that can be slow or down, and it cannot silently fall back again.
+   *
+   * Instrument Sans is a VARIABLE font, so these two files (latin, latin-ext) cover 400 to 700
+   * between them. `font-weight: 400 700` is the range declaration that lets the browser
+   * interpolate; Google's own CSS ships eight blocks pointing at these same two files.
+   * latin-ext is not optional here: it carries characters such as ğ, ş and İ, which real names
+   * need. 41KB for the pair. */
+  @font-face{
+    font-family:'Instrument Sans';
+    font-style:normal;
+    font-weight:400 700;
+    font-display:swap;
+    src:url('/fonts/instrument-sans-latin-ext.woff2') format('woff2');
+    unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+  }
+  @font-face{
+    font-family:'Instrument Sans';
+    font-style:normal;
+    font-weight:400 700;
+    font-display:swap;
+    src:url('/fonts/instrument-sans-latin.woff2') format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  }
+</style>
+<style>
+  /* Light skin (2026-07-26), same system as the app. This is the first screen anyone signing
+     in sees, so leaving it dark would have been the exact half-and-half seam we set out to remove. */
+  /* The aurora glow is deliberately wider than the card so it bleeds past it. On a phone that
+     means it is wider than the SCREEN, and with nothing clipping it the login page gained 93px of
+     horizontal scroll (and 202px of vertical), so the card could be dragged off-centre and the
+     page felt broken before anyone had signed in. Decorative overflow must never be scrollable. */
+  html,body{margin:0;height:100%;overflow-x:hidden}
+  body{background:#F4F5F7;color:#0F1115;font-family:'Instrument Sans','Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    display:flex;align-items:center;justify-content:center;min-height:100dvh;padding:24px;box-sizing:border-box}
+  ::selection{background:rgba(46,107,255,.16)}
+  .page{position:relative;width:100%;max-width:380px}
+  .aurora{position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:560px;height:420px;border-radius:50%;
+    background:radial-gradient(50% 50% at 50% 50%,rgba(46,107,255,.16),rgba(46,107,255,0) 70%);pointer-events:none}
+  .card{position:relative;z-index:1;text-align:center;background:#fff;border:1px solid rgba(16,24,40,.07);border-radius:26px;
+    padding:38px 28px 32px;box-shadow:0 2px 4px rgba(16,24,40,.03),0 32px 64px -28px rgba(16,24,40,.28)}
+  .brand{display:flex;flex-direction:column;align-items:center;gap:11px;margin-bottom:30px}
+  .brand-mark{display:inline-flex;flex-direction:column;align-items:center;gap:3px}
+  .brand-name{font:700 22px/1 'Instrument Sans';letter-spacing:-.025em}
+  h1{font:700 21px/1.3 'Instrument Sans';letter-spacing:-.024em;margin:0 0 10px;color:#0F1115}
+  p.sub{font:400 15px/1.6 'Instrument Sans';color:#5A6270;margin:0 0 30px}
+  .btn-google{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;box-sizing:border-box;
+    background:#1F57E0;color:#fff;font:600 15px/1 'Instrument Sans';
+    padding:15px 20px;border-radius:100px;text-decoration:none;
+    box-shadow:0 10px 22px -12px rgba(31,87,224,.75);transition:transform .15s ease, box-shadow .15s ease, background .15s ease}
+  .btn-google:hover{background:#1746BC;transform:translateY(-1px);box-shadow:0 14px 28px -12px rgba(31,87,224,.8)}
+  .btn-google:active{transform:translateY(0)}
+  .gmark{background:#fff;border-radius:50%;padding:3px;display:inline-flex}
+  .note{margin-top:22px;font:500 12.5px/1.5 'Instrument Sans';color:#5C6472}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="aurora" aria-hidden="true"></div>
+  <div class="card">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg width="26" height="10" viewBox="0 0 20 8"><path d="M2.4 2.2 Q10 9.6 17.6 2.2" fill="none" stroke="#2E6BFF" stroke-width="2.3" stroke-linecap="round"/></svg>
+        <div style="width:5px;height:23px;border-radius:2.5px;background:#0F1115"></div>
+      </div>
+      <span class="brand-name">Haii</span>
+    </div>
+    <h1>Sign in to Haii</h1>
+    <p class="sub">It keeps the promises you make in meetings.</p>
+    <a class="btn-google" href="/auth/google/start">
+      <span class="gmark"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+        <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.9c1.7-1.57 2.7-3.88 2.7-6.62z"/>
+        <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.84.86-3.06.86-2.35 0-4.34-1.59-5.05-3.72H.96v2.33A9 9 0 0 0 9 18z"/>
+        <path fill="#FBBC05" d="M3.95 10.7A5.4 5.4 0 0 1 3.67 9c0-.59.1-1.16.28-1.7V4.97H.96A9 9 0 0 0 0 9c0 1.45.35 2.83.96 4.03l2.99-2.33z"/>
+        <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.97l2.99 2.33C4.66 5.17 6.65 3.58 9 3.58z"/>
+      </svg></span>
+      Sign in with Google
+    </a>
+    <!-- Two kinds of server reach this page. A hosted one signs people in with Google, and only
+         addresses its owner has allowed get in. A self-hosted local one has no sign-in at all, and
+         only lands here when a request does not look like it came from the app itself, for example
+         when it is opened under an address other than localhost or APP_URL. -->
+    <div class="note">Only addresses the person running this server has allowed can sign in.</div>
+    <div class="note">Running Haii on your own computer? There is no sign-in. Open it at the address in APP_URL, which is http://localhost:4820 unless you changed it.</div>
+  </div>
+</div>
+</body>
+</html>

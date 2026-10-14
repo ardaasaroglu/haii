@@ -1,0 +1,5 @@
+# normalize line endings in the repo
+* text=auto eol=lf
+
+# built by `npm run demo:build`, not written by hand
+docs/index.html linguist-generated

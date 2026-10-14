@@ -1,0 +1,13 @@
+#!/bin/sh
+# Runs `npm test` before every `git push`. No database needed.
+# Optional. CI runs the same tests on every pull request and on every push to main.
+#
+# Enable once per clone:  git config core.hooksPath .githooks
+# Skip deliberately:      git push --no-verify
+echo "pre-push: npm test"
+if ! npm test --silent; then
+  echo ""
+  echo "pre-push: tests failed, push aborted."
+  echo "Fix them, or use --no-verify if you genuinely mean to push a red tree."
+  exit 1
+fi

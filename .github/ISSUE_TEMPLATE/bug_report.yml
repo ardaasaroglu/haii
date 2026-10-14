@@ -1,0 +1,27 @@
+name: Bug report
+description: Something does not work the way the README says it should.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Do not paste an API key, a token or a real meeting transcript. For a security problem, use the security policy instead of an issue.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected and what you saw.
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Where
+      description: A local run or the hosted demo, plus your OS, Node version and browser.
+      placeholder: Local run, Windows 11, Node 22, Chrome
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: Server output or browser console errors
+      render: text

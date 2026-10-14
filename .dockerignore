@@ -1,0 +1,28 @@
+# Kept deliberately short. Every extra exclusion is a chance to remove something the server turns
+# out to read at runtime. These entries matter for a local `docker build` and as an explicit
+# statement of what must never reach an image.
+
+# Installed inside the image by `npm ci`. Copying a host node_modules in would shadow that with
+# whatever architecture the host happens to be.
+node_modules
+**/node_modules
+
+# THE DATABASE. server/.data is the local PGlite directory. Baking a local database into an image
+# is the worst thing on this list.
+server/.data*
+
+# Prompt-diff baselines. They render real card titles from real meetings, so they are real meeting
+# content and have no business in an image.
+server/.fixtures
+
+# Secrets. The host injects real values as environment variables; a committed or local .env must
+# never win over them, and must never be readable from a layer.
+.env
+**/.env
+.env.*
+**/.env.*
+!**/.env.example
+
+.git
+.gitignore
+*.log

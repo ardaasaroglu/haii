@@ -1,0 +1,35 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+# A newer push to the same branch or pull request cancels the run it replaces.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Type-check schema
+        run: npx tsc --noEmit -p packages/schema
+      - name: Type-check server
+        run: npx tsc --noEmit -p server
+      - name: Tests
+        run: npm test
+      - name: The hosted demo is up to date
+        run: |
+          npm run demo:build
+          git diff --exit-code -- docs/index.html

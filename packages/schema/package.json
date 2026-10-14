@@ -1,0 +1,20 @@
+{
+  "name": "@haii/schema",
+  "private": true,
+  "description": "The Haii card contract: action types, their payloads and how a draft card is validated.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "test": "tsx src/test.ts"
+  },
+  "dependencies": {
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}

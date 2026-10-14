@@ -1,0 +1,38 @@
+{
+  "name": "@haii/server",
+  "private": true,
+  "description": "The Haii server: API, scheduled jobs, connectors and the web client.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "test": "tsx src/lib/metrics.test.ts && tsx src/lib/mime.test.ts && tsx src/lib/manifest.test.ts && tsx src/lib/practice.test.ts && tsx src/lib/tz.test.ts && tsx src/lib/batch.test.ts && tsx src/lib/clientTime.test.ts && tsx src/lib/lock.test.ts && tsx src/lib/snooze.test.ts && tsx src/lib/slot.test.ts && tsx src/lib/retry.test.ts && tsx src/lib/meeting.test.ts && tsx src/lib/slackEvidence.test.ts && tsx src/lib/distill.test.ts && tsx src/lib/followUp.test.ts && tsx src/lib/invite.test.ts && tsx src/lib/slackWindow.test.ts && tsx src/lib/transcriptDedupe.test.ts && tsx src/lib/memorySelect.test.ts && tsx src/connectors/crm.test.ts && tsx src/lib/recipients.test.ts && tsx src/lib/ratelimit.test.ts && tsx src/lib/errorSplit.test.ts && tsx src/lib/clientHtml.test.ts && tsx src/lib/demo.test.ts && tsx src/lib/localRequest.test.ts && tsx src/lib/skipReason.test.ts && tsx src/lib/prices.test.ts",
+    "prompts:snap": "tsx src/tools/promptDiff.ts --snap",
+    "prompts:check": "tsx src/tools/promptDiff.ts",
+    "brain:backfill": "tsx src/tools/backfillBrain.ts",
+    "brain:backfill:apply": "tsx src/tools/backfillBrain.ts --apply"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.110.0",
+    "@electric-sql/pglite": "^0.5.4",
+    "@haii/schema": "*",
+    "@hono/node-server": "^2.0.8",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.45.2",
+    "google-auth-library": "^10.9.0",
+    "hono": "^4.12.28",
+    "node-cron": "^3.0.3",
+    "pg": "^8.16.3",
+    "pino": "^9.5.0",
+    "tsx": "^4.19.2",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/node-cron": "^3.0.11",
+    "@types/pg": "^8.15.6",
+    "typescript": "^5.6.3"
+  }
+}
