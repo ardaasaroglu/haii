@@ -11,10 +11,10 @@
     "test": "tsx src/test.ts"
   },
   "dependencies": {
-    "zod": "^4.0.0"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
-    "tsx": "^4.19.2",
+    "tsx": "^4.23.15",
     "typescript": "^5.6.3"
   }
 }
