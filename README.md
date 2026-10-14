@@ -31,7 +31,7 @@ General agents take any task. Haii takes one: the commitments you make out loud.
 1. **It reads the meeting.** Paste a transcript, or connect Google or a notetaker and it reads your meeting notes on its own.
 2. **It finds what you promised.** Your commitments, not everyone else's. Each one becomes a card: an email to draft, a meeting to book, a message to post, a document to write, a to-do.
 3. **Every card shows its evidence.** Tap a card and it turns over to the sentence you said, word for word. Press Open transcript and the meeting opens with that sentence marked.
-4. **You decide with one gesture.** Swipe right or press Approve and it happens. Swipe left or press Not now, then choose to bring it back later or drop it. To change a card first, tap it and press Edit. Either way you get a few seconds to undo.
+4. **You decide with one gesture.** Swipe right or press Approve and it happens. Swipe left or press Not now, then choose to bring it back later or drop it. To change a card first, tap it and press Edit. Either way you get a few seconds to undo. In the app a right swipe is called a nod and a left swipe a shake.
 5. **It tells you what really happened.** Drafted, booked, posted, or not sent and why. Never a silent success.
 6. **It briefs you before the next one.** With your calendar connected, it tells you what you promised these people last time and what is still open.
 
@@ -62,7 +62,7 @@ The first start writes `server/.env` with an encryption key. Create an API key a
 ANTHROPIC_API_KEY=sk-ant-...
 ```
 
-Open <http://localhost:4820>. The first screen asks what people call you in a meeting, because Haii needs to know which speaker is you. Then go to Setup and paste a meeting under "Read a meeting now". It needs at least 500 characters once timestamps and notes boilerplate are removed. Your cards arrive in the deck.
+Open <http://localhost:4820>. The first screen asks what people call you in a meeting, because Haii needs to know which speaker is you. Then go to Setup and paste a meeting under "Read a meeting now". It needs at least 500 characters once timestamps and notes boilerplate are removed. To try it straight away, enter **Alex Morgan** as your name and paste [examples/sample-meeting.txt](examples/sample-meeting.txt). Your cards arrive in the deck.
 
 There is no database to install. Postgres is embedded and lives in `server/.data`.
 
@@ -70,7 +70,7 @@ There is no database to install. Postgres is embedded and lives in `server/.data
 
 ## Your Claude key
 
-The key stays on your machine and is only ever sent to Anthropic. Calls are billed to it. The default model is `claude-sonnet-5-5`. Daily spend caps are on by default: past $0.75 in a day most calls move to the cheaper `claude-haiku-4-5`, and at $1.50 Haii pauses its Claude calls until the next day. Change the caps in `server/.env`, see `server/.env.example`. Until a key is set, Setup says so.
+The key stays on your machine and is only ever sent to Anthropic. Calls are billed to it. API use is billed separately from a Claude.ai Pro or Max plan, so the key needs prepaid credit at platform.claude.com. The default model is `claude-sonnet-5-5`. Daily spend caps are on by default: past $0.75 in a day most calls move to the cheaper `claude-haiku-4-5`, and at $1.50 Haii pauses its Claude calls until the next day. Change the caps in `server/.env`, see `server/.env.example`. Until a key is set, Setup says so.
 
 This release was run against the live Claude API: a pasted meeting came back as cards, each with a word-for-word quote, and a brief was written for the next meeting. In that check a pasted ten-line meeting cost about 2 US cents on `claude-sonnet-5-5`. If a call fails, because of a wrong key or an empty balance, the app says so in a sentence.
 

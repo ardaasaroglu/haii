@@ -1,0 +1,10 @@
+Dana Reyes: Thanks for making time. Before we get into the renewal, I still do not have the tiered pricing.
+Alex Morgan: You are right, that one is on me. I'll send you the tiered pricing by end of day tomorrow, with the volume breaks.
+Dana Reyes: Good. Marcus also asked whether there is an annual option.
+Alex Morgan: There is. I'll write up the annual option as a one page summary and share it with you and Marcus.
+Marcus Hale: Works for me. Can we also book the security review?
+Alex Morgan: Yes. Let's do the security review on Thursday at 3pm, I'll set it up for forty five minutes.
+Dana Reyes: Perfect. And please chase the legal team about the data processing addendum.
+Alex Morgan: I'll chase legal about the data processing addendum this week.
+Marcus Hale: One more thing, the webhook retries are still failing on our side. I will send you our logs tonight.
+Alex Morgan: Understood. I'll look into the webhook retries and come back to you.

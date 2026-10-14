@@ -492,10 +492,10 @@
       var tag = d.createElement("div");
       tag.id = "demoBar";
       tag.setAttribute("style", "flex:none;display:flex;justify-content:center;align-items:center;gap:5px;padding:5px 10px;" +
-        "background:#10182B;color:#fff;font:500 11.5px/1.3 system-ui,sans-serif;letter-spacing:.02em;white-space:nowrap");
+        "background:#10182B;color:#fff;font:500 11.5px/1.3 system-ui,sans-serif;letter-spacing:.02em;flex-wrap:wrap;text-align:center");
       var label = d.createElement("span");
-      label.textContent = "Fictional demo · nothing is sent";
-      label.setAttribute("style", "min-width:0;overflow:hidden;text-overflow:ellipsis");
+      label.textContent = "Haii turns what you promise in meetings into cards. A fictional week, nothing is sent.";
+      label.setAttribute("style", "min-width:0");
       var sep = d.createElement("span");
       sep.textContent = "·";
       sep.setAttribute("aria-hidden", "true");

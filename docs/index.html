@@ -1523,10 +1523,10 @@
       var tag = d.createElement("div");
       tag.id = "demoBar";
       tag.setAttribute("style", "flex:none;display:flex;justify-content:center;align-items:center;gap:5px;padding:5px 10px;" +
-        "background:#10182B;color:#fff;font:500 11.5px/1.3 system-ui,sans-serif;letter-spacing:.02em;white-space:nowrap");
+        "background:#10182B;color:#fff;font:500 11.5px/1.3 system-ui,sans-serif;letter-spacing:.02em;flex-wrap:wrap;text-align:center");
       var label = d.createElement("span");
-      label.textContent = "Fictional demo · nothing is sent";
-      label.setAttribute("style", "min-width:0;overflow:hidden;text-overflow:ellipsis");
+      label.textContent = "Haii turns what you promise in meetings into cards. A fictional week, nothing is sent.";
+      label.setAttribute("style", "min-width:0");
       var sep = d.createElement("span");
       sep.textContent = "·";
       sep.setAttribute("aria-hidden", "true");
@@ -1651,6 +1651,9 @@ async function api(path,opts){
 }
 
 /* ---------------- state ---------------- */
+/* The interface is English, so dates are too. An English browser keeps its own order (US or UK);
+   any other browser gets en-GB, so a visitor never sees English words beside a foreign weekday. */
+const UI_LOCALE=(()=>{try{const l=navigator.language||"";return /^en/i.test(l)?l:"en-GB";}catch(e){return "en-GB";}})();
 const S={feed:null,deck:[],topSince:Date.now(),coached:false,briefReadStart:0,undoGrace:5000};
 let editing=null;
 
@@ -1818,7 +1821,7 @@ function renderToday(){
     dayHtml=`
     <div class="row-lbl"><span class="t">Your day</span><span class="c">${f.today_meetings.length}</span></div>
     <div class="daystrip">${f.today_meetings.map(m=>{
-      const t=new Date(m.starts_at).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+      const t=new Date(m.starts_at).toLocaleTimeString(UI_LOCALE,{hour:"2-digit",minute:"2-digit"});
       const past=new Date(m.ends_at||m.starts_at).getTime()<Date.now();
       return `<button class="daychip${past?" past":""}" data-mid="${esc(m.id)}" data-bid="${m.brief_id?esc(m.brief_id):""}" data-title="${esc(m.title)}">
         <span class="dt">${t}</span><span class="dtitle">${esc(m.title)}</span>
@@ -2142,7 +2145,7 @@ function cardEl(c,depth){
              swipe, so below the fold means gone. Evidence takes whatever room is left; the way back
              to the source is always reachable. -->
         ${srcs?`<div class="srcs">${srcs}</div>`:""}
-        <div class="bkf"><div class="m">expires ${new Date(c.expiresAt).toLocaleString([],{month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"})}<br>priority ${esc(c.priority)} · ${esc(c.model||"")}</div>
+        <div class="bkf"><div class="m">expires ${new Date(c.expiresAt).toLocaleString(UI_LOCALE,{month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"})}<br>priority ${esc(c.priority)} · ${esc(c.model||"")}</div>
           <button class="btn-mini bk-edit">✎ Edit</button></div>
       </div>
     </div>`;
@@ -3161,7 +3164,7 @@ function wireNote(bid,existing){
 function openBrief(){
   const m=S.feed&&S.feed.next_meeting;if(!m||!m.briefing)return;
   showBrief(m.briefing.id,m.title,
-    `${m.title} · ${new Date(m.startsAt).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})}`,
+    `${m.title} · ${new Date(m.startsAt).toLocaleTimeString(UI_LOCALE,{hour:"2-digit",minute:"2-digit"})}`,
     m.briefing.content||{},m.briefing.model,m.briefing.prompt_version,m.briefing.rating,m.briefing.written_at,m.briefing.note);
 }
 async function openBriefById(bid,title){
@@ -3268,7 +3271,7 @@ function tickCountdown(){
   const m=S.feed&&S.feed.next_meeting;const cd=$("#cd"),l=$("#cdL"),w=$("#bcWhen");
   if(!m||!cd)return;
   const starts=new Date(m.startsAt);
-  if(w)w.textContent=starts.toLocaleString([],{weekday:"short",hour:"2-digit",minute:"2-digit"})+(m.location?" · meet":"");
+  if(w)w.textContent=starts.toLocaleString(UI_LOCALE,{weekday:"short",hour:"2-digit",minute:"2-digit"})+(m.location?" · meet":"");
   const left=(starts.getTime()-Date.now())/1000;
   if(left>0){
     const h=Math.floor(left/3600),mm=Math.floor((left%3600)/60),ss=Math.floor(left%60);
@@ -3293,7 +3296,7 @@ function histRow(c){
   return`<div class="hr2" style="--tc:${t.color||"var(--gold)"}">
     <div class="hi2">${t.glyph||"•"}</div>
     <div class="hx"><div class="t">${esc(c.title)}</div>
-    <div class="s">${new Date(c.decidedAt||c.createdAt).toLocaleString([],{month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"})}${ex?` · ${esc(ex.detail)}`:""}</div></div>
+    <div class="s">${new Date(c.decidedAt||c.createdAt).toLocaleString(UI_LOCALE,{month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"})}${ex?` · ${esc(ex.detail)}`:""}</div></div>
     ${retry}<span class="hst ${stCls(c.status)}">${stTxt(c)}</span></div>`;
 }
 // Patches one row in place after a retry. A full renderHistory() would reset histOffset/histSeen/
@@ -3342,7 +3345,7 @@ function dayLabel(d){
   const opts=d.getFullYear()===now.getFullYear()
     ?{weekday:"short",month:"short",day:"numeric"}
     :{weekday:"short",month:"short",day:"numeric",year:"numeric"};
-  return d.toLocaleDateString([],opts);
+  return d.toLocaleDateString(UI_LOCALE,opts);
 }
 // Load-more state for this tab only, reset on each renderHistory() (tab open). histSeen guards the
 // one known offset-pagination edge case (see the comment on GET /api/v1/history): a new decision
@@ -4299,7 +4302,7 @@ async function renderSetup(){
     <div class="su-grp">
       <span class="su-sec">You</span>
       <div class="su-card"><div class="su-pad">
-        <span class="su-note">${esc(U.name||"")}${U.email?` · ${esc(U.email)}`:""}${U.role?`<br>${esc(U.role)}`:""}${U.created_at?`<br>With Haii since ${new Date(U.created_at).toLocaleDateString()}`:""}</span>
+        <span class="su-note">${esc(U.name||"")}${U.email?` · ${esc(U.email)}`:""}${U.role?`<br>${esc(U.role)}`:""}${U.created_at?`<br>With Haii since ${new Date(U.created_at).toLocaleDateString(UI_LOCALE)}`:""}</span>
         <span class="su-lbl">Timezone</span>
         <span class="su-note" style="margin-top:-6px">Decides when your briefs are written and when your digest arrives. Follows your device unless you set it.</span>
         <select id="tzSel" class="su-in"></select>

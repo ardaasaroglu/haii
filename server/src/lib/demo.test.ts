@@ -192,7 +192,8 @@ const link = barEl?.children.find((c) => c.tag === "a");
 eq("the link names the source", link?.textContent, "Source on GitHub");
 eq("and points at the repository", link?.href, "https://github.com/ardaasaroglu/haii");
 check("in a new tab, with no opener", link?.target === "_blank" && link?.rel === "noopener");
-check("the bar stays on one line", /white-space:nowrap/.test(barEl?.attrs.style ?? ""));
+// The bar now says what Haii is, so on a narrow screen it wraps rather than cutting the sentence off.
+check("the bar may wrap instead of cutting its text", /flex-wrap:wrap/.test(barEl?.attrs.style ?? "") && !/white-space:nowrap/.test(barEl?.attrs.style ?? ""));
 
 console.log("\n--- every path the client calls gets an answer ---");
 const paths = new Set<string>();
