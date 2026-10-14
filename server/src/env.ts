@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const serverRoot = join(here, "..");
 const envPath = join(serverRoot, ".env");
-config({ path: envPath });
+config({ path: envPath, quiet: true });
 
 // DATABASE_URL decides two things: which database db/index.ts opens (managed Postgres when it is
 // set, the embedded PGlite database when it is not) and which ENCRYPTION_KEY rule applies below.
